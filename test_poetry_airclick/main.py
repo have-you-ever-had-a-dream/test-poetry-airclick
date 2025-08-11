@@ -54,6 +54,45 @@ def use_requests():
     except Exception as e:
         print(f"Error using requests: {e}")
 
+def test_vulnerable_dependencies():
+    """
+    Test code that uses packages with known vulnerabilities.
+    This tests whether transitive dependencies are properly analyzed.
+    """
+    try:
+        # Test Flask (has vulnerabilities in older versions)
+        import flask
+        print(f"Flask version: {flask.__version__}")
+        
+        # Test Jinja2 (has vulnerabilities in older versions)
+        import jinja2
+        print(f"Jinja2 version: {jinja2.__version__}")
+        
+        # Test PyYAML (has vulnerabilities in older versions)
+        import yaml
+        print(f"PyYAML version: {yaml.__version__}")
+        
+        # Test urllib3 (has vulnerabilities in older versions)
+        import urllib3
+        print(f"urllib3 version: {urllib3.__version__}")
+        
+        # Test cryptography (has vulnerabilities in older versions)
+        import cryptography
+        print(f"cryptography version: {cryptography.__version__}")
+        
+        # Test Pillow (has vulnerabilities in older versions)
+        import PIL
+        print(f"Pillow version: {PIL.__version__}")
+        
+        # Test Django (has vulnerabilities in older versions)
+        import django
+        print(f"Django version: {django.__version__}")
+        
+    except ImportError as e:
+        print(f"Import error: {e}")
+    except Exception as e:
+        print(f"Error testing vulnerable dependencies: {e}")
+
 def potentially_vulnerable_code():
     """
     Code that might use the vulnerable redshift-connector pattern.
@@ -90,6 +129,9 @@ def main():
     print("-" * 30)
     
     use_requests()
+    print("-" * 30)
+    
+    test_vulnerable_dependencies()
     print("-" * 30)
     
     potentially_vulnerable_code()
