@@ -31,8 +31,13 @@ jobs:
       # Fetch project source with GitHub Actions Checkout. Use either v3 or v4.
       - uses: actions/checkout@v4
       # Add package manager(s) as needed
-      - run: apk add --no-cache python3 py3-pip
-      - run: apk add --no-cache poetry=~2
+      - run: apk add --no-cache python3 py3-pip curl
+      # Install poetry version 2.x via official installer
+      - run : curl -sSL https://install.python-poetry.org | python3 - --version 2.1.3
+      # Add poetry's bin directory in PATH env variable
+      - run: export PATH="$HOME/.local/bin:$PATH"
+      # Check correct poetry version is installed
+      - run: poetry --version
       # Run the "semgrep ci" command on the command line of the docker image.
       - run: semgrep ci --allow-local-builds --supply-chain --debug
         env:
